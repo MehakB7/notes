@@ -46,11 +46,43 @@ const deleteNote = async (req, res) => {
   }
 };
 
-const getNotes = (req, res) => {};
+const getNotes = async (req, res) => {
+  try {
+    const notes = await Notes.find({}).select(
+      "title body user._id user.email, user.name"
+    );
 
-const editNotes = (req, res) => {};
+    res.status(StatusCodes.OK).json({ notes });
+  } catch (e) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: e.message });
+  }
+};
+
+const editNote = async (req, res) => {
+  const id = req.params.id;
+  const body = res.body;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { $set: { ...body } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "Note not found" });
+    }
+
+    res.status(StatusCodes.OK, { updatedUser });
+  } catch (e) {
+    res.status(StatusCodes.BAD_REQUEST).json({ message: e.message });
+  }
+};
 
 module.exports = {
   addNote,
   deleteNote,
+  getNotes,
+  editNote,
 };
