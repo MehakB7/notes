@@ -9,7 +9,7 @@ const express = require("express");
 const route = express.Router();
 
 route.post("/", auth, addNote);
-route.get("/", auth, getNotes);
+route.get("/", getNotes);
 
 route.put("/", auth, editNote);
 
