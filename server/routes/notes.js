@@ -8,12 +8,12 @@ const { auth } = require("../middleware/auth");
 const express = require("express");
 const route = express.Router();
 
-route.post("/", auth, addNote);
+route.post("/", addNote);
 route.get("/", getNotes);
 
-route.put("/", auth, editNote);
+route.put("/:id", editNote);
 
-route.delete("/:id", auth, deleteNote);
+route.delete("/:id", deleteNote);
 
 module.exports = {
   notes: route,

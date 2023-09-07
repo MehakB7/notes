@@ -2,6 +2,7 @@ const { Notes } = require("../modal/notes");
 const jwt = require("jsonwebtoken");
 const { User } = require("../modal/users");
 const { StatusCodes } = require("http-status-codes");
+const { updateNonNullChain } = require("typescript");
 
 const addNote = async (req, res) => {
   const email = req.headers.email;
@@ -60,21 +61,21 @@ const getNotes = async (req, res) => {
 
 const editNote = async (req, res) => {
   const id = req.params.id;
-  const body = res.body;
+  const body = req.body;
   try {
-    const updatedUser = await User.findByIdAndUpdate(
+    const updatedNote = await Notes.findByIdAndUpdate(
       id,
       { $set: { ...body } },
       { new: true }
     );
 
-    if (!updatedUser) {
+    if (!updatedNote) {
       return res
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "Note not found" });
     }
 
-    res.status(StatusCodes.OK, { updatedUser });
+    res.status(StatusCodes.OK).json({ updatedNote });
   } catch (e) {
     res.status(StatusCodes.BAD_REQUEST).json({ message: e.message });
   }

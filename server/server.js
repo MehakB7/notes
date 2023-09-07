@@ -42,6 +42,7 @@ mongoose
   .then(() => {
     server = app.listen(port, () => {
       console.log("start server at port", port);
+      app.emit("appStarted");
     });
   });
 
