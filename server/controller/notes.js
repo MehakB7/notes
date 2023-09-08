@@ -32,9 +32,7 @@ const deleteNote = async (req, res) => {
 
   const notes = await Notes.findOne({ _id: id });
   if (!notes) {
-    res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({ message: "Data is not corrent" });
+    res.status(StatusCodes.NOT_FOUND).json({ message: "Note doesn't exist" });
   }
 
   try {

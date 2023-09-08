@@ -70,7 +70,6 @@ const login = async (req, res) => {
 
 const whoami = async (req, res, next) => {
   const token = req.headers.authorization;
-  console.log("toake is", token);
 
   if (!token) {
     res.status(StatusCodes.UNAUTHORIZED).json({ message: "Unauthorize" });

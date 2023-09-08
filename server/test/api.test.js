@@ -14,6 +14,20 @@ before(function (done) {
   });
 });
 
+describe("User Testing", () => {
+  describe("Register", () => {
+    it("should register new  user", () => {});
+    it("should give 400 when not send required fields", () => {});
+    it("should give error when user already registerd", () => {});
+  });
+
+  describe("Login", () => {
+    it("should login user", () => {});
+    it("should return error if user doesn't exist", () => {});
+    it("should return error if password is incorrect", () => {});
+  });
+});
+
 describe("Notes testing", () => {
   let id = "";
   it("it should get all the data ", (done) => {
@@ -87,5 +101,30 @@ describe("Notes testing", () => {
       });
   });
 
-  it("it should return error when deleting wrong note", () => {});
+  it("it should return error when deleting wrong note", (done) => {
+    chai
+      .request(app)
+      .delete(`/notes/${id}`)
+      .end((err, response) => {
+        if (response) {
+          expect(response.status).to.be.equal(StatusCodes.NOT_FOUND);
+          expect(response.body.message).to.be.eq("Note doesn't exist");
+        }
+        done();
+      });
+  });
+
+  it("it should return error when editing wrong note", (done) => {
+    chai
+      .request(app)
+      .put(`/notes/${id}`)
+      .send({ title: "Hello edit" })
+      .end((err, response) => {
+        if (response) {
+          expect(response.status).to.be.equal(StatusCodes.NOT_FOUND);
+          expect(response.body.message).to.be.eq("Note not found");
+        }
+        done();
+      });
+  });
 });
