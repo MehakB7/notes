@@ -15,10 +15,55 @@ before(function (done) {
 });
 
 describe("User Testing", () => {
+  const email = "testuser@gmail.com";
+  const password = "Mehak@123";
+  const firstName = "Test";
+  const lastName = "User";
+
   describe("Register", () => {
-    it("should register new  user", () => {});
-    it("should give 400 when not send required fields", () => {});
-    it("should give error when user already registerd", () => {});
+    it("should register new  user", (done) => {
+      chai
+        .request(app)
+        .post("/auth/register/")
+        .send({ email, password, firstName, lastName })
+        .end((err, response) => {
+          if (response) {
+            expect(response.statusCode).to.be.eq(201);
+            console.log("resoponse", response.body);
+          }
+          done();
+        });
+    });
+    it("should give 400 when not send required fields", (done) => {
+      chai
+        .request(app)
+        .post("/auth/register/")
+        .send({ password, firstName, lastName })
+        .end((err, response) => {
+          if (response) {
+            expect(response.statusCode).to.be.eq(StatusCodes.BAD_REQUEST);
+            expect(response.body.message).to.be.eq(
+              "Please Provide Required Information"
+            );
+            console.log("resoponse", response.body);
+          }
+          done();
+        });
+    });
+    it("should give error when user already registerd", (done) => {
+      chai
+        .request(app)
+        .post("/auth/register/")
+        .send({ email, password, firstName, lastName })
+        .end((err, response) => {
+          if (response) {
+            expect(response.statusCode).to.be.eq(StatusCodes.BAD_REQUEST);
+            expect(response.body.message).to.be.eq("User already registered");
+            console.log("resoponse", response.body);
+          }
+          done();
+        });
+    });
   });
 
   describe("Login", () => {
