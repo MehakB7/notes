@@ -2,11 +2,13 @@ const express = require("express");
 const helmet = require("helmet");
 const multer = require("multer");
 const mongoose = require("mongoose");
+const swaggerUi = require("swagger-ui-express");
 
 const { authRouter } = require("./routes/auth");
 const { notes } = require("./routes/notes");
 const { port, db_url } = require("./config");
-const { StatusCodes } = require("http-status-codes");
+
+const swaggerDocument = require("./swagger.json");
 
 const app = express();
 
@@ -31,6 +33,7 @@ app.use(helmet());
 //     .json({ message: "file uploaded successfully" });
 // });
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/auth", authRouter);
 app.use("/notes", notes);
 

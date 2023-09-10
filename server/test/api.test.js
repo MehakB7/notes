@@ -1,8 +1,6 @@
 const chai = require("chai");
 const chaihttp = require("chai-http");
-
 const { app } = require("../server");
-const { response } = require("express");
 const { StatusCodes } = require("http-status-codes");
 const expect = chai.expect;
 
