@@ -4,5 +4,52 @@
     "version": "0.0.1",
     "title": "Note App",
     "description": "Basic CURD Note app"
+  },
+  "path": {
+    "notes": {
+      "post": {
+        "summary": "Add a new Note",
+        "operationId": "addNote",
+        "requestBody": {
+          "description": "Create a new task in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Note"
+              }
+            }
+          },
+          "required": true
+        },
+        "response": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Note"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "Pet": {
+      "required": ["name", "photoUrls"],
+      "type": "object",
+      "properties": {
+        "titile": {
+          "type": "string",
+          "example": "doggie"
+        },
+        "body": {
+          "type": "string",
+          "example": "Me learning swagger"
+        }
+      }
+    }
   }
 }
