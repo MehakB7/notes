@@ -5,8 +5,8 @@
     "title": "Note App",
     "description": "Basic CURD Note app"
   },
-  "path": {
-    "notes": {
+  "paths": {
+    "/notes": {
       "post": {
         "summary": "Add a new Note",
         "operationId": "addNote",
