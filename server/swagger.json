@@ -38,7 +38,7 @@
   },
   "components": {
     "Pet": {
-      "required": ["name", "photoUrls"],
+      "required": ["title", "body"],
       "type": "object",
       "properties": {
         "titile": {
