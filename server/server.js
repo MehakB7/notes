@@ -9,6 +9,7 @@ const { notes } = require("./routes/notes");
 const { port, db_url } = require("./config");
 
 const swaggerDocument = require("./swagger.json");
+const { findOne } = require("./helpers/user");
 
 const app = express();
 
@@ -33,20 +34,22 @@ app.use(helmet());
 //     .json({ message: "file uploaded successfully" });
 // });
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use("/auth", authRouter);
-app.use("/notes", notes);
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use("/auth", authRouter);
+// app.use("/notes", notes);
 
-mongoose
-  .connect(db_url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    server = app.listen(port, () => {
-      console.log("start server at port", port);
-      app.emit("appStarted");
-    });
-  });
+// mongoose
+//   .connect(db_url, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => {
+//     server = app.listen(port, () => {
+//       console.log("start server at port", port);
+//       app.emit("appStarted");
+//     });
+//   });
 
+// addOne("Learn File system", "Clear filesystem task successfully");
+findOne(1);
 module.exports = { app };
