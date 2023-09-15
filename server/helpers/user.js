@@ -20,7 +20,25 @@ const createFile = async () => {
 
 const editOne = async (uuid, values) => {
   try {
-  } catch {}
+    const item = await findOne(uuid);
+    const file = await readFile();
+
+    if (!item) {
+      return;
+    }
+
+    const [id, title, body] = item.split(",");
+
+    const updatedItem = `${id},${values.title || title},${values.body || body}`;
+
+    const newData = file.replace(item, updatedItem);
+
+    updatedFile = fs.writeFile(fileLocation, newData);
+
+    console.log(newData);
+  } catch (e) {
+    console.log("error while editing the note", e);
+  }
 };
 
 const deleteOne = async () => {};
@@ -32,7 +50,6 @@ const readFile = async () => {
   } catch (e) {
     if (e.code == "ENOENT") {
       const file = await createFile();
-      console.log("file is", file);
       return file;
     }
   }
@@ -48,6 +65,7 @@ const findOne = async (uuid) => {
     });
     if (item) {
       console.log("item is", item);
+
       return item;
     } else {
       console.log("No item found", item);
@@ -74,4 +92,5 @@ module.exports = {
   readFile,
   addOne,
   findOne,
+  editOne,
 };

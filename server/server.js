@@ -9,7 +9,7 @@ const { notes } = require("./routes/notes");
 const { port, db_url } = require("./config");
 
 const swaggerDocument = require("./swagger.json");
-const { findOne } = require("./helpers/user");
+const { editOne } = require("./helpers/user");
 
 const app = express();
 
@@ -51,5 +51,6 @@ app.use(helmet());
 //   });
 
 // addOne("Learn File system", "Clear filesystem task successfully");
-findOne(1);
+// findOne(1);
+editOne(2, { title: "New 2 title", body: "New Body 2" });
 module.exports = { app };
