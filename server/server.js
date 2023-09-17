@@ -10,6 +10,7 @@ const { port, db_url } = require("./config");
 
 const swaggerDocument = require("./swagger.json");
 const { editOne } = require("./helpers/user");
+const { startWritingStream } = require("./streams/streamOp");
 
 const app = express();
 
@@ -52,5 +53,7 @@ app.use(helmet());
 
 // addOne("Learn File system", "Clear filesystem task successfully");
 // findOne(1);
-editOne(2, { title: "New 2 title", body: "New Body 2" });
+
+startWritingStream();
+
 module.exports = { app };
