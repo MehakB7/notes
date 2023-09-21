@@ -9,8 +9,6 @@ const { notes } = require("./routes/notes");
 const { port, db_url } = require("./config");
 
 const swaggerDocument = require("./swagger.json");
-const { editOne } = require("./helpers/user");
-const { startWritingStream } = require("./streams/streamOp");
 
 const app = express();
 
